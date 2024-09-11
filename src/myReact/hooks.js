@@ -44,5 +44,5 @@ export function useReducer(reducer, initalState) {
     console.log("dispatch");
   };
 
-  return [initalState, dispatch];
+  return [hook.memorizedState, dispatch];
 }
