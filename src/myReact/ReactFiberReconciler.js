@@ -10,7 +10,11 @@ export function updateHostComponent(wip) {
 }
 
 // 函数组件
-export function updateFunctionComponent() {}
+export function updateFunctionComponent(wip) {
+  const { type, props } = wip;
+  const children = type(props);
+  reconcilerChildren(wip, children);
+}
 
 // 初次渲染
 // 协调 伪diff
