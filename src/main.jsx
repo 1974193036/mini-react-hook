@@ -1,14 +1,17 @@
 /* eslint-disable react/prop-types */
 // import ReactDOM from "react-dom/client";
+import { useReducer } from './myReact/react'
 import ReactDOM from "./myReact/react-dom";
 import "./index.css";
 
 // eslint-disable-next-line react-refresh/only-export-components
 function FunctionComponent(props) {
+  const [state, dispatch] = useReducer((x) => x + 1, 0);
+  
   return (
     <div>
       <p>{props.name}</p>
-      <button>按钮</button>
+      <button onClick={() => dispatch()}>{state}</button>
     </div>
   );
 }
