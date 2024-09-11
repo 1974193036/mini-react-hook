@@ -13,7 +13,7 @@ export function scheduleUpdateOnFiber(fiber) {
 
 // 1. 处理wip
 // 2. 更新wip
-// 这个函数会在空闲时间一直执行，不在空闲时间则中断执行
+// 这个函数会在空闲时间一直执行，不在空闲时间则中断执行，空闲时继续执行
 function performUnitWork() {
   console.log(wip);
   // 1. 处理wip
