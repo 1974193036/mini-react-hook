@@ -1,4 +1,5 @@
-import ReactDOM from "react-dom/client";
+// import ReactDOM from "react-dom/client";
+import ReactDOM from './myReact/react-dom'
 import './index.css'
 
 const jsx = (
