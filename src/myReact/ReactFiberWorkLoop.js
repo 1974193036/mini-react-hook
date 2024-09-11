@@ -3,7 +3,7 @@ import {
   updateHostComponent,
 } from "./ReactFiberReconciler";
 import { FunctionComponent, HostComponent } from "./ReactWorkTags";
-import { Placement } from "./utils";
+import { Placement, Update, updateNode } from "./utils";
 
 // wip: work in progress 当前正在工作中的
 let wip = null;
@@ -86,6 +86,11 @@ function commitWorker(wip) {
     // 0100 更新
     // 1000 删除
     parentNode.appendChild(stateNode);
+  }
+
+  if (flags & Update && stateNode) {
+    console.log(111);
+    updateNode(wip.stateNode, wip.alternate.props, wip.props);
   }
 
   // 2. 提交子节点

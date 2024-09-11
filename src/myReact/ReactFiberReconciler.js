@@ -1,7 +1,6 @@
-import { isArray, isStringOrNumber, updateNode } from "./utils";
+import { isArray, isStringOrNumber, Update, updateNode } from "./utils";
 import { createFiber } from "./ReactFiber";
 import { renderWithHooks } from "./hooks";
-
 
 export function updateHostComponent(wip) {
   if (!wip.stateNode) {
@@ -13,10 +12,11 @@ export function updateHostComponent(wip) {
 
 // 函数组件
 export function updateFunctionComponent(wip) {
-  renderWithHooks(wip)
+  renderWithHooks(wip);
 
   const { type, props } = wip;
   const children = type(props);
+
   reconcilerChildren(wip, children);
 }
 
@@ -31,6 +31,7 @@ function reconcilerChildren(wip, children) {
   const newChildren = isArray(children) ? children : [children];
 
   let previousNewFiber = null;
+  let oldFiber = wip.alternate?.child;
   for (let i = 0; i < newChildren.length; i++) {
     const newChild = newChildren[i];
     if (newChild == null) {
@@ -38,6 +39,21 @@ function reconcilerChildren(wip, children) {
     }
 
     const newFiber = createFiber(newChild, wip);
+    const same = sameNode(newFiber, oldFiber);
+
+    if (same) {
+      // 复用 old fiber
+      Object.assign(newFiber, {
+        stateNode: oldFiber.stateNode,
+        alternate: oldFiber,
+        flags: Update,
+      });
+    }
+
+    if (oldFiber) {
+      oldFiber = oldFiber.sibling;
+    }
+
     if (previousNewFiber == null) {
       wip.child = newFiber;
     } else {
@@ -45,4 +61,9 @@ function reconcilerChildren(wip, children) {
     }
     previousNewFiber = newFiber;
   }
+}
+
+// 同级，同类型，同key
+function sameNode(a, b) {
+  return a && b && a.type === b.type && a.key === b.key;
 }

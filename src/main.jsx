@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 // import ReactDOM from "react-dom/client";
-import { useReducer } from './myReact/react'
+import { useReducer } from "./myReact/react";
 import ReactDOM from "./myReact/react-dom";
 import "./index.css";
 
@@ -8,7 +8,7 @@ import "./index.css";
 function FunctionComponent(props) {
   const [state, dispatch] = useReducer((x) => x + 1, 0);
   // const [state2, dispatch2] = useReducer((x) => x + 2, 0);
-  
+
   return (
     <div>
       <p>{props.name}</p>

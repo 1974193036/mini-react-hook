@@ -34,9 +34,9 @@ export function updateNode(node, prevVal, nextVal) {
   // 遍历老属性
   Object.keys(prevVal).forEach((k) => {
     if (k === "children") {
-      if (isStringOrNumber(nextVal[k])) {
-        node.textContent = "";
-      }
+      // if (isStringOrNumber(nextVal[k])) {
+      //   node.textContent = "";
+      // }
     } else if (k.slice(0, 2) === "on") {
       const eventName = k.slice(2).toLocaleLowerCase();
       node.removeEventListener(eventName, prevVal[k]);
@@ -49,7 +49,12 @@ export function updateNode(node, prevVal, nextVal) {
 
   Object.keys(nextVal).forEach((k) => {
     if (k === "children") {
-      if (isStringOrNumber(nextVal[k])) {
+      if (isStringOrNumber(nextVal[k]) && isStringOrNumber(prevVal[k])) {
+        // 值不相同，再更新
+        if (nextVal[k] !== prevVal[k]) {
+          node.textContent = nextVal[k];
+        }
+      } else if (isStringOrNumber(nextVal[k])) {
         node.textContent = nextVal[k];
       }
     } else if (k.slice(0, 2) === "on") {
@@ -60,4 +65,3 @@ export function updateNode(node, prevVal, nextVal) {
     }
   });
 }
-
