@@ -1,5 +1,7 @@
 import { isArray, isStringOrNumber, updateNode } from "./utils";
 import { createFiber } from "./ReactFiber";
+import { renderWithHooks } from "./hooks";
+
 
 export function updateHostComponent(wip) {
   if (!wip.stateNode) {
@@ -11,6 +13,8 @@ export function updateHostComponent(wip) {
 
 // 函数组件
 export function updateFunctionComponent(wip) {
+  renderWithHooks(wip)
+
   const { type, props } = wip;
   const children = type(props);
   reconcilerChildren(wip, children);

@@ -7,6 +7,7 @@ import "./index.css";
 // eslint-disable-next-line react-refresh/only-export-components
 function FunctionComponent(props) {
   const [state, dispatch] = useReducer((x) => x + 1, 0);
+  // const [state2, dispatch2] = useReducer((x) => x + 2, 0);
   
   return (
     <div>
@@ -26,6 +27,6 @@ const jsx = (
   </div>
 );
 
-console.log(jsx);
+// console.log(jsx);
 
 ReactDOM.createRoot(document.getElementById("root")).render(jsx);
