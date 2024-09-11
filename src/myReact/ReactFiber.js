@@ -34,7 +34,7 @@ export function createFiber(vnode, returnFiber) {
     // 原生标签
     fiber.tag = HostComponent;
   } else if (isFn(type)) {
-    fiber.tag = FunctionComponent
+    fiber.tag = FunctionComponent;
   }
 
   return fiber;
